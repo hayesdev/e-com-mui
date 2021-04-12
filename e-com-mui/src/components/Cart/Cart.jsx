@@ -5,21 +5,23 @@ import useStyles from './styles.js';
 function Cart({cart}) {
     const classes = useStyles();
 
-    const isEmpty = !cart.line_items.length;
+    // const isEmpty = false;
+    // On initial render the cart is not being seen - changing this value to true seems to fix it for the moment
+        
 
     const EmptyCart = () => {
-    return <Typography variant='subtitle1'>
+        return <Typography variant='subtitle1'>
             You have no items in your cart, add some!
-        </Typography>
+            </Typography>
     }
 
     const FilledCart = () => {
-    return    <>
-        <Grid container spacing={3}>
-            {cart.line_items.map((item) => {
-                <Grid item xs={12} sm={4} key={item.id}>
+        return   <>
+            <Grid container spacing={3}>
+            {cart.line_items.map(item => {
+        return  <Grid item xs={12} sm={4} key={item.id}>
                     <div>{item.name}</div>
-                    </Grid> 
+                </Grid> 
             })}
          </Grid>  
          <div className={classes.cardDetails}>
@@ -34,16 +36,18 @@ function Cart({cart}) {
         </>
     }
 
+if (!cart.line_items) return 'Loading...'
+
+
     return (
       <Container>
           <div className={classes.toolbar}/>
           <Typography className={classes.title} variant='h3'>
               Your Shopping Cart
           </Typography>
-          {isEmpty ? <EmptyCart/> : <FilledCart/>}
+          {!cart.line_items.length ? <EmptyCart/> : <FilledCart/>}
       </Container>
       )
 }
-
 
 export default Cart
