@@ -15,7 +15,6 @@ function FormInput({name, label, required}) {
         label={label}
         required={required}
         />    
-
        </Grid>
     )
 }
